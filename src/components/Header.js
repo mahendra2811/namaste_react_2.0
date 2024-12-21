@@ -17,16 +17,17 @@ const Header = () => {
   console.log("Headeer Render");
 
   return (
-    <div className="header">
-      <div className="logo-container">
+    <>
+    <div className="header flex items-center justify-between p-5 bg-gray-800 text-white  ">
+      <div className="logo-container  ">
         <img
           src={Logo_img}
           alt="App Logo of  food app "
-          className="logo"
+          className="h-14 w-auto"
         />  
       </div>
       <div className="nav-items">
-        <ul>
+        <ul className="flex space-x-8" >
           <li>
             Online Status : {onlineStatus ? " ✅" : "❌"}
           </li> 
@@ -34,15 +35,15 @@ const Header = () => {
             <Link  to="/" className="links"  > Home </Link>
           </li>
           <li>
-            <Link to="/Contact" className="links" > Contact us </Link>
+            <Link to="/Contact" className="hover:text-gray-300" > Contact us </Link>
           </li>
           <li>
-            <Link to="/About" className="links" >About us</Link>
+            <Link to="/About" className="hover:text-gray-300" >About us</Link>
           </li>
           <li>
-            <Link to="/Grocery" className="links" >Grocery</Link>
+            <Link to="/Grocery" className="hover:text-gray-300" >Grocery</Link>
           </li>
-          <li>Cart</li>
+          <li className="hover:text-gray-300"  >Cart</li>
           <button className="login"
             onClick={() => {
               btnNameReact === "Login" ? setBtnNameReact("Logout") : setBtnNameReact("Login"); 
@@ -51,6 +52,7 @@ const Header = () => {
         </ul>
       </div>
     </div>
+    </>
   );
 };
 
