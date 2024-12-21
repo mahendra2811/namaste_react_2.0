@@ -9,10 +9,10 @@ import UserClass from "./UserClass";
 class About extends Component{
     constructor(props){
         super(props);
-        // console.log(props);
+        console.log(props);
     }
     componentDidMount(){
-        // console.log("Parent componentDidMount");
+        console.log("Parent componentDidMount");
     }
 
     render(){

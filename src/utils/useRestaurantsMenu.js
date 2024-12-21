@@ -18,6 +18,4 @@ const useRestrauntMenu = (resId)=>{
     return resInfo ;
 };
 export default useRestrauntMenu ;
-
-
-
+ 
