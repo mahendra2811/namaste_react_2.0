@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import Shimmer from "./Shimmer";
+import ShimmerMenuRestaurent from './ShimmerMenuRestaurent';
 import { MENU_API } from '../utils/constants';
 import { useParams } from 'react-router';
 import '../CSS/RestaurantMenu.css'
@@ -60,6 +61,9 @@ const RestaurantMenu = () => {
 
     return (
         <div>
+            {resInfo === null ? (<ShimmerMenuRestaurent />) : (
+
+            
             <div className="restaurant-menu">
                 <div className="restaurant-info">
                     <h1 className="restaurant-name">{name}</h1>
@@ -92,6 +96,7 @@ const RestaurantMenu = () => {
                     ))}
                 </ul>
             </div>
+            )}
         </div>
     )
 }
