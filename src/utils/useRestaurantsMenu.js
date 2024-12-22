@@ -3,7 +3,6 @@ import { MENU_API } from "./constants";
 
 
 const useRestrauntMenu = (resId)=>{
-
     const [resInfo , useResInfo ] = useState(null);
 
     useEffect(()=>{
@@ -17,5 +16,4 @@ const useRestrauntMenu = (resId)=>{
     };
     return resInfo ;
 };
-export default useRestrauntMenu ;
- 
+export default useRestrauntMenu ;                                                   

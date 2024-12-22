@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard  , {withPromotedLabel} from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
@@ -17,8 +17,9 @@ const Body = () => {
   const [searchText, setSearchText] = useState('');
   const searchInputRef = useRef(null);
 
-  const[loading , setLoading]= useState(true);
+  const [loading, setLoading] = useState(true);
 
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   console.log("Body Rendered")
 
@@ -44,8 +45,8 @@ const Body = () => {
     const json = await data.json();         //cors plugiin extension we use here
     console.log(json.data);
     // console.log(json.data.cards[2]);
-    setlistOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
-    setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
+    setlistOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
+    setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
   };
 
   const onlineStatus = useOnlineStatus();
@@ -70,7 +71,7 @@ const Body = () => {
         setLoading(false);
       });
   }, []);
-  
+
   if (loading) {
     return <div>
       <div className="animate-pulse bg-gray-400 rounded-lg p-4 h-[480px]">
@@ -80,7 +81,7 @@ const Body = () => {
       </div>
     </div> // Show loading indicator
   }
- 
+
 
 
 
@@ -103,20 +104,20 @@ const Body = () => {
               }}
               ref={searchInputRef}
             />
-            <button 
-             className="search-btn px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors "
-            onClick={() => {
-              // console.log(searchText) ; 
-              if (searchText.length === 0) {
-                return setFilteredRestaurant(listofRestaurant);
-              }
-              const filteredRestaurant = listofRestaurant.filter(
-                (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()));
-              setFilteredRestaurant(filteredRestaurant);
-              console.log(filteredRestaurant);
-              // setSearchText('');
-            }}
-           
+            <button
+              className="search-btn px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors "
+              onClick={() => {
+                // console.log(searchText) ; 
+                if (searchText.length === 0) {
+                  return setFilteredRestaurant(listofRestaurant);
+                }
+                const filteredRestaurant = listofRestaurant.filter(
+                  (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                setFilteredRestaurant(filteredRestaurant);
+                console.log(filteredRestaurant);
+                // setSearchText('');
+              }}
+
             >
               Search
             </button>
@@ -145,10 +146,20 @@ const Body = () => {
 
         <div className="res-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
           {
-            filteredRestaurant.map((restaurant) => (
-              <Link key={restaurant.info.id} to={"/restaurant/" + restaurant.info.id}  ><RestaurantCard resData={restaurant} /></Link>
-            ))
-            }
+            (!filteredRestaurant || filteredRestaurant.length === 0) ? (
+             <Shimmer/>
+            ) :
+              (
+                filteredRestaurant.map((restaurant) => (
+                  <Link key={restaurant.info.id} to={"/restaurant/" + restaurant.info.id}  >
+                    {
+                      restaurant.info.promoted ? <RestaurantCardPromoted resData={restaurant} /> : <RestaurantCard resData={restaurant} />
+                    }
+                    
+                  </Link>
+                ))
+              )
+          }
 
 
         </div>
