@@ -23,11 +23,13 @@ const Body = () => {
 
   console.log("Body Rendered")
 
+  // fort data fetching
   useEffect(() => {
     fetchData();
     console.log("hello data is fetched");
   }, []);
 
+    // data search input focus and select
   useEffect(() => {
     if (searchInputRef.current) {
       searchInputRef.current.focus();
@@ -35,11 +37,13 @@ const Body = () => {
     }
   }, [filteredRestaurant]);
 
+  // list of restaurant is empty then we do this thing
   if (listofRestaurant === 0) {
     console.log("list of restaurant is 0");
     return <Shimmer />;  //ye mene khus likha haaa 
   }
 
+  // main api fetch from swiggy 
   const fetchData = async () => {
     const data = await fetch(main_api);
     const json = await data.json();         //cors plugiin extension we use here
@@ -49,8 +53,8 @@ const Body = () => {
     setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
   };
 
+  // for checking person is online or not 
   const onlineStatus = useOnlineStatus();
-
   if (onlineStatus == false) return (
     <div>
       <h1>
@@ -60,6 +64,9 @@ const Body = () => {
     </div>
 
   );
+
+
+  // if no data is their then loading and view shown
   useEffect(() => {
     fetchData()
       .then(response => {
@@ -71,7 +78,6 @@ const Body = () => {
         setLoading(false);
       });
   }, []);
-
   if (loading) {
     return <div>
       <div className="animate-pulse bg-gray-400 rounded-lg p-4 h-[480px]">
@@ -92,7 +98,7 @@ const Body = () => {
 
         <div className="filter flex flex-row justify-between items-center gap-4 mb-8 ">
 
-
+          {/* search baar and search button */}
           <div className="search w-full flex gap-2 m-4 md:w-96  ">
             <input
               type="text"
@@ -123,7 +129,7 @@ const Body = () => {
             </button>
           </div>
 
-
+                {/* for button top filtered restaurent  */}
           <button className="filter-btn px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             onClick={() => {
               // filter logic lagana ha 

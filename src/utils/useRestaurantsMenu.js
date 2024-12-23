@@ -3,7 +3,7 @@ import { MENU_API } from "./constants";
 
 
 const useRestrauntMenu = (resId)=>{
-    const [resInfo , useResInfo ] = useState(null);
+    const [resInfo , setResInfo ] = useState(null);
 
     useEffect(()=>{
         fetchData();
@@ -12,7 +12,7 @@ const useRestrauntMenu = (resId)=>{
     const fetchData = async ()=>{
         const data = await fetch(MENU_API + resId ) ;
         const json = await data.json();
-        useResInfo(json);
+        setResInfo(json);
     };
     return resInfo ;
 };

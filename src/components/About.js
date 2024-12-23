@@ -19,7 +19,7 @@ class About extends Component{
         console.log("Parent render");
         return(
             <div className="about">
-            <h1>About Class components</h1>
+            {/* <h1>About Class components</h1> */}
             <UserClass name={"first"} email= {"mahendrapuniya92@gmail.com"} phone = "1234567890" />
             {/* <UserClass name={"Second"} email= {"abc@gmail.com"} phone = "12341234" /> */}
         </div>

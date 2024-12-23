@@ -1,12 +1,13 @@
-import React , {lazy , Suspense} from "react" ;
+import React , {lazy , Suspense, useEffect, useState ,useContext} from "react" ;
 import ReactDom from "react-dom/client";
 import Header from "./src/components/Header";
 import Body from "./src/components/Body";
 import { createBrowserRouter , RouterProvider , Outlet  } from "react-router-dom";
-import About from "./src/components/About";
+// import About from "./src/components/About";
 import Contact from "./src/components/Contact";
 import Error from "./src/components/Error";
 import RestaurantMenu from "./src/components/RestaurantMenu";
+import userContext from "./src/utils/userContext";
 // import Grocery from "./src/components/Grocery";
 
 
@@ -17,14 +18,33 @@ import RestaurantMenu from "./src/components/RestaurantMenu";
 const Grocery = lazy(()=>{
     import('./src/components/Grocery');
 } );
+const About = lazy(()=>{
+    import('./src/components/About');
+} );
+
+
 
  const Applayout = ()=> {
+
+    const [userName , setUserName] = useState();
+    // authentication
+    useEffect(()=>{
+        // make an api call and send the username and password
+        const data = {
+            name: "mahendra",
+            
+        };
+        setUserName(data.name);
+    }, [])
+
     return(
+        <userContext.Provider value={ {loggedInUser : userName}}>
         <div className="app">
             <Header/>
             <Outlet/>
             {/* outlet is replaced by the children element for this  */}
         </div>
+        </userContext.Provider>
     );
 };
 const appRouter = createBrowserRouter([
@@ -38,7 +58,10 @@ const appRouter = createBrowserRouter([
                 },
                 {
                     path:"/about",
-                    element: <About/>
+                    element:  //<About/>
+                     <Suspense fallback={<h1>page is loading sooon data is loaded</h1>}>
+                                <About/>
+                            </Suspense>
                 },
                 {
                     path:"/contact",

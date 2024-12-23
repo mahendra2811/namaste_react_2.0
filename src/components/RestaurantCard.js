@@ -1,4 +1,6 @@
 import { cloudinary_basic_link } from "../utils/constants";
+import userContext from "../utils/userContext";
+import { useContext } from "react";
 
 const RestaurantCard = (props) => {
   const { resData } = props;
@@ -22,6 +24,9 @@ const RestaurantCard = (props) => {
   } = resData?.info;
   const { deliveryTime } = resData?.info?.sla;
 
+  const {user} = useContext(userContext);
+
+
   return (
     <div
       className="res-card bg-gray-300 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 m-6   "
@@ -34,7 +39,7 @@ const RestaurantCard = (props) => {
           alt="Biryani le looo"
           loading="lazy"
         />
-      </div>
+      </div> 
 
       <h3 className="text-xl font-bold text-gray-800 mb-2 truncate" >{name}</h3>
       <h5 className="text-sm text-gray-600 mb-3 line-calmp-2   " >{cuisines.join(',')}</h5>
@@ -55,6 +60,9 @@ const RestaurantCard = (props) => {
       </div>
       <div className="text-base font-medium text-gray-900">
         {costForTwo}
+      </div>
+      <div className="text-base font-medium text-gray-900">
+        {user} 
       </div>
     </div>
   );

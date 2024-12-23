@@ -17,13 +17,15 @@ const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
   // console.log("Headeer Render");
 
-  const {loggedInUser} = useContext(userContext);
+  const { loggedInUser } = useContext(userContext);
   // console.log(data);
 
 
   return (
     <>
       <div className="header flex items-center justify-between p-5 bg-gray-800 text-white  ">
+
+        {/* logo */}
         <div className="logo-container  ">
           <img
             src={Logo_img}
@@ -31,6 +33,8 @@ const Header = () => {
             className="h-14 w-auto"
           />
         </div>
+
+
         <div className="nav-items">
           <ul className="flex space-x-8" >
             <li>
@@ -48,14 +52,19 @@ const Header = () => {
             <li>
               <Link to="/Grocery" className="hover:text-gray-300" >Grocery</Link>
             </li>
-            <li className="hover:text-gray-300"  >Cart</li>
+            <li className="hover:text-gray-300"  >
+              Cart
+            </li>
             <button className="login"
               onClick={() => {
                 btnNameReact === "Login" ? setBtnNameReact("Logout ") : setBtnNameReact("Login");
               }
               } > {btnNameReact} </button>
-              <p>{loggedInUser}</p>
-              
+
+            <li className="hover:text-gray-300"  >
+            {loggedInUser}
+            </li>
+
           </ul>
         </div>
       </div>
