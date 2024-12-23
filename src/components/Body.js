@@ -45,8 +45,8 @@ const Body = () => {
     const json = await data.json();         //cors plugiin extension we use here
     console.log(json.data);
     // console.log(json.data.cards[2]);
-    setlistOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
-    setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
+    setlistOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
+    setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
   };
 
   const onlineStatus = useOnlineStatus();
