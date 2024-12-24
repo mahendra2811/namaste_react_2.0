@@ -6,8 +6,6 @@ import useOnlineStatus from "../utils/useOnlineStatus";
 import userContext from "../utils/userContext";
 
 
-
-
 const Header = () => {
 
   // let btnName = "Login";
