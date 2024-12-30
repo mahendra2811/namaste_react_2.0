@@ -8,6 +8,8 @@ import Contact from "./src/components/Contact";
 import Error from "./src/components/Error";
 import RestaurantMenu from "./src/components/RestaurantMenu";
 import userContext from "./src/utils/userContext";
+import { Provider } from "react-redux";
+import appStore from "./src/utils/appStore";
 // import Grocery from "./src/components/Grocery";
 
 
@@ -38,13 +40,15 @@ const About = lazy(()=>{
     }, [])
 
     return(
-        <userContext.Provider value={ {loggedInUser : userName}}>
-        <div className="app">
-            <Header/>
-            <Outlet/>
-            {/* outlet is replaced by the children element for this  */}
-        </div>
-        </userContext.Provider>
+        <Provider store={appStore}>
+            <userContext.Provider value={ {loggedInUser : userName , setUserName }}>
+            <div className="app">
+                <Header/>
+                <Outlet/>
+                {/* outlet is replaced by the children element for this  */}
+            </div>
+            </userContext.Provider>
+         </Provider>
     );
 };
 const appRouter = createBrowserRouter([

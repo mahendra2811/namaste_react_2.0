@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import userContext from "../utils/userContext";
+import { useSelector } from "react-redux";
 
 
 const Header = () => {
@@ -17,7 +18,10 @@ const Header = () => {
 
   const { loggedInUser } = useContext(userContext);
   // console.log(data);
-
+  
+  // selector for cart and hook
+  // subscribing to the store using a aselector will make the component re-render whenever the state changes
+  const cartItems = useSelector((store) => store.cart.items );
 
   return (
     <>
@@ -50,8 +54,8 @@ const Header = () => {
             <li>
               <Link to="/Grocery" className="hover:text-gray-300" >Grocery</Link>
             </li>
-            <li className="hover:text-gray-300"  >
-              Cart
+            <li className="hover:text-gray-300 font-bold text-xl "  >
+              Cart ({cartItems.length} items) 
             </li>
             <button className="login"
               onClick={() => {
