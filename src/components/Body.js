@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import RestaurantCard  , {withPromotedLabel} from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
@@ -29,7 +29,7 @@ const Body = () => {
     console.log("hello data is fetched");
   }, []);
 
-    // data search input focus and select
+  // data search input focus and select
   useEffect(() => {
     if (searchInputRef.current) {
       searchInputRef.current.focus();
@@ -49,6 +49,7 @@ const Body = () => {
     const json = await data.json();         //cors plugiin extension we use here
     console.log(json.data);
     // console.log(json.data.cards[2]);
+
     setlistOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
     setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants ?? {});
   };
@@ -129,7 +130,7 @@ const Body = () => {
             </button>
           </div>
 
-                {/* for button top filtered restaurent  */}
+          {/* for button top filtered restaurent  */}
           <button className="filter-btn px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             onClick={() => {
               // filter logic lagana ha 
@@ -152,21 +153,20 @@ const Body = () => {
 
         <div className="res-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
           {
-            (!filteredRestaurant || filteredRestaurant.length === 0) ? (
-             <Shimmer/>
-            ) :
-              (
-                filteredRestaurant.map((restaurant) => (
-                  <Link key={restaurant.info.id} to={"/restaurant/" + restaurant.info.id}  >
-                    {
-                      restaurant.info.promoted ? <RestaurantCardPromoted resData={restaurant} /> : <RestaurantCard resData={restaurant} />
-                    }
-                    
-                  </Link>
-                ))
-              )
+            Array.isArray(filteredRestaurant) && filteredRestaurant.length > 0 ? (
+              filteredRestaurant.map((restaurant) => (
+                <Link key={restaurant.info.id} to={"/restaurant/" + restaurant.info.id}>
+                  {restaurant.info.promoted ? (
+                    <RestaurantCardPromoted resData={restaurant} />
+                  ) : (
+                    <RestaurantCard resData={restaurant} />
+                  )}
+                </Link>
+              ))
+            ) : (
+              <Shimmer />
+            )
           }
-
 
         </div>
       </div>

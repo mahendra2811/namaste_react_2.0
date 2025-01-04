@@ -8,17 +8,28 @@ const cartSlice = createSlice({
     },
     reducers:{
         // mutating the state here 
-        addItems: (state , action )=>{
-            state.items.push(action.payload);
+          addItem: (state , action )=>{
+            //   but in newer state we have to mutate the state here
+              state.items.push(action.payload);
+              
+              
+              //  do not mutate the state directly
+            // pehle ese kerte thee lakin ab ese nahi kertee haa
+            // const newState  = [...state];
+            // newState.items.push(action.payload)
+            // return newState;
+            // returning is mandatory earlier  
+
         },
-        removeItems:(state )=>{
+        removeItem:(state )=>{
             state.items.pop();
         },
         clearCart: (state)=>{
             state.items.length =0 ;
+            // return {items:[]};
         }
 
     }
 });
-export const {addItems , removeItems , clearCart} = cartSlice.actions;
+export const {addItem , removeItem , clearCart} = cartSlice.actions;
 export default cartSlice.reducer;

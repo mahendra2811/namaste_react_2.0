@@ -18,10 +18,14 @@ const Header = () => {
 
   const { loggedInUser } = useContext(userContext);
   // console.log(data);
-  
+
   // selector for cart and hook
   // subscribing to the store using a aselector will make the component re-render whenever the state changes
-  const cartItems = useSelector((store) => store.cart.items );
+  // this will make the component re-render whenever the state changes
+  // this will give access tot the store access to the store state
+  const cartItems = useSelector((store) => store.cart.items);
+  // console.log(cartItems);
+
 
   return (
     <>
@@ -55,7 +59,7 @@ const Header = () => {
               <Link to="/Grocery" className="hover:text-gray-300" >Grocery</Link>
             </li>
             <li className="hover:text-gray-300 font-bold text-xl "  >
-              Cart ({cartItems.length} items) 
+              <Link to="/Cart" className="hover:text-gray-300" >Cart ({cartItems.length} items) </Link>
             </li>
             <button className="login"
               onClick={() => {
@@ -64,7 +68,7 @@ const Header = () => {
               } > {btnNameReact} </button>
 
             <li className="hover:text-gray-300"  >
-            {loggedInUser}
+              {loggedInUser}
             </li>
 
           </ul>

@@ -7,8 +7,9 @@ import { useParams } from 'react-router';
 // import '../CSS/RestaurantMenu.css'
 import useRestrauntMenu from '../utils/useRestaurantsMenu';
 import { cloudinary_basic_link } from '../utils/constants';
-
-
+import { addItems } from '../utils/cartSlice';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../utils/cartSlice';
 
 const RestaurantMenu = () => {
 
@@ -54,8 +55,13 @@ const RestaurantMenu = () => {
 
 
 
-    const { itemCards } = resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
-    // console.log(itemCards[0]?.card?.info);
+    const { itemCards } = resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[6]?.card?.card;
+    console.log(resInfo);
+
+    const handleItemClick = () => {
+        // dispatch an item 
+        dispatch(addItem("cart"));
+    }
 
 
 
@@ -98,7 +104,13 @@ const RestaurantMenu = () => {
                                                     <div className="item-name text-2xl  font-semibold text-gray-500  ">{item?.card?.info?.name.trim()}</div>
                                                     <div className="item-category text-lg ">{item?.card?.info?.category}</div>
                                                     <div className="item-description">{item?.card?.info?.description}</div>
-                                                    <div className="item-price text-rig text-3xl  font-bold mt-2  bottom-0 left-0  " > ₹{item?.card?.info?.price / 100 || item?.card?.info?.defaultPrice / 100}</div>
+                                                    <div className="flex felx-col justify-between w-full  ">
+                                                        <div className="item-price text-rig text-3xl  font-bold mt-2  bottom-0 left-0  " > ₹{item?.card?.info?.price / 100 || item?.card?.info?.defaultPrice / 100}</div>
+                                                        <button
+                                                            className="add-to-cart-button right-0 bottom-0 mt-5 rounded-br-2xl bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                                                            onClick={handleItemClick}
+                                                        >Add to cart</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
